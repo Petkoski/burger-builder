@@ -16,5 +16,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# My instructions file
+# My custom files
 Instructions.txt
+READMEoriginal.md
