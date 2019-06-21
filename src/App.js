@@ -5,32 +5,37 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: "Jovan", age: 24 },
-      { name: "Eva", age: 23 },
-      { name: "Manu", age: 25 }
+      { id: "1", name: "Jovan", age: 24 },
+      { id: "2", name: "Eva", age: 23 },
+      { id: "3", name: "Manu", age: 25 }
     ],
     otherState: "Some other value",
     showPersons: false
   }
-  
-  switchNameHandler = (newName) => {
-    this.setState({
-      persons: [
-        { name: "Jovan Petkoski", age: 24 },
-        { name: newName, age: 23 },
-        { name: "Manu", age: 27 }
-      ]
-    });
+
+  nameChangedHandler = (event, id) => {
+    const personInd = this.state.persons.findIndex(p => p.id === id); //Will hold the index
+    const updatedPerson = { //Spread operator to create a new object with the same properties (so we won't mutate the original one)
+        ...this.state.persons[personInd]
+    };
+
+    //Other approach:
+    // const person2 = Object.assign({}, this.state.persons[personInd]);
+
+    updatedPerson.name = event.target.value;
+
+    const allPersons = [...this.state.persons]; //Create a copy array of all persons (from the state)
+    allPersons[personInd] = updatedPerson; //Replace the updated one
+
+    this.setState({ persons: allPersons }); //Set the new state
   }
 
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: "Jovan", age: 24 },
-        { name: "Eva", age: 23 },
-        { name: event.target.value, age: 25 }
-      ]
-    });
+  deletePersonHandler = (personInd) => {
+    // const persons = this.state.persons; //In JS objects and arrays are reference types. Here, we are getting a pointer to the original persons object (to the original state). We shouldn't mutate the ORIGINAL data.
+    // const persons = this.state.persons.slice(); //Creating a copy of the original array with slice() [no args] method.
+    const persons = [...this.state.persons]; //Or using an ES6 feature, spread out elements of the array into a new arr
+    persons.splice(personInd, 1); 
+    this.setState({ persons: persons });
   }
 
   togglePersonsHandler = () => {
@@ -54,21 +59,20 @@ class App extends Component {
       //Outsourcing the check to a variable outside of the return()
       personsDiv = (
         <div>
-          <Person 
-            name={this.state.persons[0].name} 
-            age={this.state.persons[0].age} />
-
-          <Person 
-            name={this.state.persons[1].name} 
-            age={this.state.persons[1].age}
-            click={this.switchNameHandler.bind(this, "Ema")} />
-
-          <Person 
-            name={this.state.persons[2].name} 
-            age={this.state.persons[2].age}
-            change={this.nameChangedHandler}>
-              Hobbies: Racing
-          </Person>
+          {
+            this.state.persons.map((person, ind) => {
+              return (
+                <Person 
+                  name={person.name} 
+                  age={person.age} 
+                  click={() => this.deletePersonHandler(ind)}
+                  change={(event) => this.nameChangedHandler(event, person.id)}
+                  key={person.id} />
+                // React expects to find a 'key' property on an element (custom or built-in elem) which is rendered through a list
+                // This property helps React update the list efficiently (to keep track of individual elements) [to compare elements of the future with elements from the past when re-rendering]
+              );
+            })
+          }
         </div>
       );
     }
