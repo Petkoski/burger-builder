@@ -3,14 +3,21 @@
  */
 
 import React from 'react';
+import Radium from 'radium';
 import './Person.css';
 
 const person = (props) => {
     //props - object giving us access to all the attributes (& content) passed to the component
 
+    const style = {
+        '@media (min-width: 500px)': { //Possible with Radium
+            width: '450px'
+        }
+    };
+
     // Outputting dynamic content 
     return (
-        <div className="Person">
+        <div className="Person" style={style}> 
             <p onClick={props.click}>I'm {props.name} and I am {props.age} years old!</p>
             <p>{props.children}</p>
 
@@ -20,4 +27,4 @@ const person = (props) => {
     );
 }
 
-export default person;
+export default Radium(person);
