@@ -47,7 +47,8 @@ class App extends Component {
   
   render() {
     const buttonStyle = {
-      backgroundColor: 'white',
+      backgroundColor: 'green',
+      color: 'white',
       font: 'inherit',
       border: '1px solid blue',
       padding: '8px',
@@ -75,14 +76,30 @@ class App extends Component {
           }
         </div>
       );
+
+      //Setting the button color dynamically
+      buttonStyle.backgroundColor = 'darkred';
+    }
+
+    const classes = []; //Class styles defined in App.css
+    if(this.state.persons.length <= 2) {
+      classes.push('darkred');
+    }
+    if(this.state.persons.length <= 1) {
+      classes.push('bold');
     }
 
     return (
       <div className="App">
         <h1>Hello, I'm a React App</h1>
-        <p>This is really working!</p>
+        <p className={classes.join(' ')}>This is really working!</p> 
+        {/* ^ Setting className dynamically */}
 
-        <button onClick={this.togglePersonsHandler} style={buttonStyle}>Toggle Persons</button>
+        <button 
+          onClick={this.togglePersonsHandler} 
+          style={buttonStyle}>
+            Toggle Persons
+        </button>
 
         {/* Rendering content conditionally: */}
         {/* { 
