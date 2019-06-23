@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Radium, { StyleRoot } from 'radium'; // Radium - a popular React package that allows using inline styles with pseudo selectors & media queries
+// import Radium, { StyleRoot } from 'radium'; // Radium - a popular React package that allows using inline styles with pseudo selectors & media queries
 import './App.css';
 import Person from './Person/Person';
 
@@ -54,10 +54,10 @@ class App extends Component {
       border: '1px solid blue',
       padding: '8px',
       cursor: 'pointer',
-      ':hover': { //Works because Radium is added
-        backgroundColor: 'lightgreen',
-        color: 'black'
-      }
+      // ':hover': { //Works because Radium is added
+      //   backgroundColor: 'lightgreen',
+      //   color: 'black'
+      // }
     };
 
     let personsDiv = null;
@@ -84,10 +84,10 @@ class App extends Component {
 
       //Setting the button color dynamically
       buttonStyle.backgroundColor = 'darkred';
-      buttonStyle[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'black'
-      };
+      // buttonStyle[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'black'
+      // };
     }
 
     const classes = []; //Class styles defined in App.css
@@ -98,52 +98,58 @@ class App extends Component {
       classes.push('bold');
     }
 
+    // return (
+    //   {/* <StyleRoot> */}
+    //     {/* StyleRoot is a Radium component. We need to wrap the entire app with it when using media queries, keyframes etc (advanced features). For pseudo-selectors - don't need to do that */}
+    //     <div className="App">
+    //     ...
+    //     </div>
+    //   {/* </StyleRoot> */}
+    // );
+
     return (
-      <StyleRoot>
-        {/* StyleRoot is a Radium component. We need to wrap the entire app with it when using media queries, keyframes etc (advanced features). For pseudo-selectors - don't need to do that */}
-        
-        <div className="App">
-          <h1>Hello, I'm a React App</h1>
-          <p className={classes.join(' ')}>This is really working!</p> 
-          {/* ^ Setting className dynamically */}
+      <div className="App">
+        <h1>Hello, I'm a React App</h1>
+        <p className={classes.join(' ')}>This is really working!</p> 
+        {/* ^ Setting className dynamically */}
 
-          <button 
-            onClick={this.togglePersonsHandler} 
-            style={buttonStyle}>
-              Toggle Persons
-          </button>
+        <button 
+          onClick={this.togglePersonsHandler} 
+          style={buttonStyle}>
+            Toggle Persons
+        </button>
 
-          {/* Rendering content conditionally: */}
-          {/* { 
-            // Simple ternary operator
-            this.state.showPersons === true ? 
-              <div>
-                <Person 
-                  name={this.state.persons[0].name} 
-                  age={this.state.persons[0].age} />
+        {/* Rendering content conditionally: */}
+        {/* { 
+          // Simple ternary operator
+          this.state.showPersons === true ? 
+            <div>
+              <Person 
+                name={this.state.persons[0].name} 
+                age={this.state.persons[0].age} />
 
-                <Person 
-                  name={this.state.persons[1].name} 
-                  age={this.state.persons[1].age}
-                  click={this.switchNameHandler.bind(this, "Ema")} />
+              <Person 
+                name={this.state.persons[1].name} 
+                age={this.state.persons[1].age}
+                click={this.switchNameHandler.bind(this, "Ema")} />
 
-                <Person 
-                  name={this.state.persons[2].name} 
-                  age={this.state.persons[2].age}
-                  change={this.nameChangedHandler}>
-                    Hobbies: Racing
-                </Person>
-              </div>
-            : null 
-          } */}
+              <Person 
+                name={this.state.persons[2].name} 
+                age={this.state.persons[2].age}
+                change={this.nameChangedHandler}>
+                  Hobbies: Racing
+              </Person>
+            </div>
+          : null 
+        } */}
 
-          {/* More elegant solution: */}
-          { personsDiv }
+        {/* More elegant solution: */}
+        { personsDiv }
 
-        </div>
-      </StyleRoot>
+      </div>
     );
   }
 }
 
-export default Radium(App); //A higher order component (component wrapping our component, kind of injecting some extra funcs)
+// export default Radium(App); //A higher order component (component wrapping our component, kind of injecting some extra funcs)
+export default App;
