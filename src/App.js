@@ -52,20 +52,22 @@ class App extends Component {
   }
   
   render() {
-    const buttonStyle = {
-      backgroundColor: 'green',
-      color: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer',
-      // ':hover': { //Works because Radium is added
-      //   backgroundColor: 'lightgreen',
-      //   color: 'black'
-      // }
-    };
+    // const buttonStyle = {
+    //   backgroundColor: 'green',
+    //   color: 'white',
+    //   font: 'inherit',
+    //   border: '1px solid blue',
+    //   padding: '8px',
+    //   cursor: 'pointer',
+    //   // ':hover': { //Works because Radium is added
+    //   //   backgroundColor: 'lightgreen',
+    //   //   color: 'black'
+    //   // }
+    // };
 
     let personsDiv = null;
+    let btnClass = '';
+
     if(this.state.showPersons) {
       //Outsourcing the check to a variable outside of the return()
       personsDiv = (
@@ -88,11 +90,12 @@ class App extends Component {
       );
 
       //Setting the button color dynamically
-      buttonStyle.backgroundColor = 'darkred';
+      // buttonStyle.backgroundColor = 'darkred';
       // buttonStyle[':hover'] = {
       //   backgroundColor: 'salmon',
       //   color: 'black'
       // };
+      btnClass = styles.darkred;
     }
 
     const labelClasses = []; //Class styles defined in App.css
@@ -122,8 +125,10 @@ class App extends Component {
         {/* ^ Setting className dynamically */}
 
         <button 
-          onClick={this.togglePersonsHandler} 
-          style={buttonStyle}>
+          onClick={this.togglePersonsHandler}
+          className={btnClass}
+          // style={buttonStyle}
+          >
             Toggle Persons
         </button>
 
