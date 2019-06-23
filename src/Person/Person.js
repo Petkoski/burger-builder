@@ -4,7 +4,7 @@
 
 import React from 'react';
 // import Radium from 'radium';
-import './Person.css';
+import './Person.css'; //Importing regular stylesheet (not a module [no .module in front of .css])
 
 const person = (props) => {
     //props - object giving us access to all the attributes (& content) passed to the component

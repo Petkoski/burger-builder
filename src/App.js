@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 // import Radium, { StyleRoot } from 'radium'; // Radium - a popular React package that allows using inline styles with pseudo selectors & media queries
-import './App.css';
+import styles from './App.module.css';
+/**
+ * ^Importing the styles from a module. Meaning: App.module.css is scoped JUST to the 
+ * App component (App.js) [component where we imported it]. Word '.module' in front of
+ * '.css' is a must.
+ */
 import Person from './Person/Person';
 
 class App extends Component {
@@ -90,12 +95,14 @@ class App extends Component {
       // };
     }
 
-    const classes = []; //Class styles defined in App.css
+    const labelClasses = []; //Class styles defined in App.css
     if(this.state.persons.length <= 2) {
-      classes.push('darkred');
+      // labelClasses.push('darkred');
+      labelClasses.push(styles.darkred);
     }
     if(this.state.persons.length <= 1) {
-      classes.push('bold');
+      // labelClasses.push('bold');
+      labelClasses.push(styles.bold);
     }
 
     // return (
@@ -108,9 +115,10 @@ class App extends Component {
     // );
 
     return (
-      <div className="App">
+      <div className={styles.App}>
+        {/* ^Using CSS modules instead of Radium ( https://facebook.github.io/create-react-app/docs/adding-a-css-modules-stylesheet ) */}
         <h1>Hello, I'm a React App</h1>
-        <p className={classes.join(' ')}>This is really working!</p> 
+        <p className={labelClasses.join(' ')}>This is really working!</p> 
         {/* ^ Setting className dynamically */}
 
         <button 
